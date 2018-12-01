@@ -6,14 +6,20 @@ class EnemyFactory {
   color lr = color(255, 0, 0);
   color dr = color(172, 0, 0);
   color r = color(255, 7, 7);
+  color vdr = color(138, 0, 0);
+  color or = color(187, 6, 6);
+  color ar = color(165, 0, 0);
 
   color lb = color(53, 99, 189);
   color db = color(38, 72, 139);
   color b = color(44, 85, 165);
 
   color g = color(0);
+  color w = color(255);
+  color lw = color(228);
+  color lg = color(196);
 
-  color taboo[] = {lr, dr, r, lb, db, b, g};
+  color taboo[] = {lr,dr,r,vdr,or,ar,lb,db,b,g,w,lw,lg};
 
   EnemyFactory() {
     vC = new ArrayList<Vehicle>();
