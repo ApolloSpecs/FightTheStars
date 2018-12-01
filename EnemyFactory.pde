@@ -1,23 +1,33 @@
 PImage[] bomb = new PImage[3];
-class BombFactory {
+PImage[] shoot = new PImage[4];
+
+class EnemyFactory {
   ArrayList<Vehicle> vC;
   color red = color(255, 0, 0);
+  color blue = color(44, 85, 165);
 
-  BombFactory() {
+  EnemyFactory() {
     vC = new ArrayList<Vehicle>();
+    /////////////////////////////////
     bomb[0] = loadImage("bombFrameOne.png");
     bomb[1] = loadImage("bombFrameTwo.png");
     bomb[2] = loadImage("bombFrameThree.png");
+    //////////////////////////////////////////
+    shoot[0] = loadImage("shootFrameOne.png");
+    shoot[1] = loadImage("shootFrameTwo.png");
+    shoot[2] = loadImage("shootFrameThree.png");
+    shoot[3] = loadImage("shootFrameFour.png");
+    ///////////////////////////////////////////
   }
-  void addVehicle(float speed, float turnSpeed) {
-    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed));
+
+  void addBomb(float speed, float turnSpeed) {
+    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed, bomb[0]));
   }
-  void removeVehicle() {
-    for (int i = vC.size()-1; i >= 0; i--) {
-      vC.remove(i);
-    }
+  void addShoot(float speed, float turnSpeed) {
+    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed, shoot[0]));
   }
-  
+
+
   // include shield mode
   void SelfHit() {
     for (int i = vC.size()-1; i >= 0; i--) {
@@ -26,14 +36,13 @@ class BombFactory {
       color crashY = v.selfContactY();
       color crashUP = v.selfContactUP();
       color crashDOWN = v.selfContactDOWN();
-  
-      if (crashX==red) {
+      if (crashX==red||crashX==blue) {
         vC.remove(i);
-      } else if (crashY==red) {
+      } else if (crashY==red||crashY==blue) {
         vC.remove(i);
-      } else if (crashUP==red) {
+      } else if (crashUP==red||crashUP==blue) {
         vC.remove(i);
-      } else if (crashDOWN==red) {
+      } else if (crashDOWN==red||crashDOWN==blue) {
         vC.remove(i);
       }
     }
