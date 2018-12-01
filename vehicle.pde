@@ -3,17 +3,14 @@ class Vehicle {
   PVector velocity;
   PVector acceleration;
   float lifeSpan; // how long the vechiel will survive for
-
+  PImage FinImage; // final image the vehicle gets assigned to
   float mass = 1; 
-
   float r; //size of the agent
-
   float maxforce;    // Maximum steering force or how fast it turns
   float maxspeed;    // Maximum speed
+  int s = 3; // for debugging purposes
 
-  int s = 3;
-
-  Vehicle(PVector location, float ms, float mf) {
+  Vehicle(PVector location, float ms, float mf, PImage image) {
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     position = location.get();
@@ -21,8 +18,9 @@ class Vehicle {
     maxspeed = ms;
     maxforce = mf;
     lifeSpan = random(20000, 500000);
+    FinImage = image;
+   
   }
-
   //update position
   void update() {
     //velocity is the change in acceleration over time
@@ -63,15 +61,14 @@ class Vehicle {
   }
 
   boolean contact(PVector target) {
-    int limit = int(diameter/2)+int((2*r)+1);
+    int limit = int(health/2)+int((2*r)+1);
     if (position.x <= target.x + limit && position.x >= target.x -limit && position.y <= target.y + limit && position.y >= target.y -limit) {
       return true;
     } else {
       return false;
     }
   }
-
-  void display() {
+  void display(PImage image) {
     // Draw a triangle rotated in the direction of mouse 
     // basically the desired velocity
     float theta = velocity.heading2D() + PI/2;
@@ -81,19 +78,13 @@ class Vehicle {
     pushMatrix();
     translate(position.x, position.y);
     rotate(theta);
-    beginShape();
-    vertex(0, -r*2);
-    vertex(-r, r*2);
-    vertex(r, r*2);
-    endShape(CLOSE);
+    image(image, 0, 0, r*10, r*10);
+    //beginShape();
+    //vertex(0, -r*2);
+    //vertex(-r, r*2);
+    //vertex(r, r*2);
+    //endShape(CLOSE);
     popMatrix();
-  }
- 
-  void borders() {
-    if (position.x < -r) position.x = width+r;
-    if (position.y < -r) position.y = height+r;
-    if (position.x > width+r) position.x = -r;
-    if (position.y > height+r) position.y = -r;
   }
 
   color selfContactX() {
@@ -136,9 +127,7 @@ class Vehicle {
   void run(PVector target) {
     //max speed nothing will stop it
     seek(target);
-
-    //borders();
     update();
-    display();
+    display(FinImage);
   }
 }
