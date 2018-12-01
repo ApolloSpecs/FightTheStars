@@ -3,8 +3,17 @@ PImage[] shoot = new PImage[4];
 
 class EnemyFactory {
   ArrayList<Vehicle> vC;
-  color red = color(255, 0, 0);
-  color blue = color(44, 85, 165);
+  color lr = color(255, 0, 0);
+  color dr = color(172, 0, 0);
+  color r = color(255, 7, 7);
+
+  color lb = color(53, 99, 189);
+  color db = color(38, 72, 139);
+  color b = color(44, 85, 165);
+
+  color g = color(0);
+
+  color taboo[] = {lr, dr, r, lb, db, b, g};
 
   EnemyFactory() {
     vC = new ArrayList<Vehicle>();
@@ -21,10 +30,10 @@ class EnemyFactory {
   }
 
   void addBomb(float speed, float turnSpeed) {
-    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed, bomb[0]));
+    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed, bomb));
   }
   void addShoot(float speed, float turnSpeed) {
-    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed, shoot[0]));
+    vC.add(new Vehicle( new PVector(random(width), random(height)), speed, turnSpeed, shoot));
   }
 
 
@@ -32,18 +41,21 @@ class EnemyFactory {
   void SelfHit() {
     for (int i = vC.size()-1; i >= 0; i--) {
       Vehicle v = vC.get(i);
-      color crashX = v.selfContactX(); 
-      color crashY = v.selfContactY();
-      color crashUP = v.selfContactUP();
-      color crashDOWN = v.selfContactDOWN();
-      if (crashX==red||crashX==blue) {
-        vC.remove(i);
-      } else if (crashY==red||crashY==blue) {
-        vC.remove(i);
-      } else if (crashUP==red||crashUP==blue) {
-        vC.remove(i);
-      } else if (crashDOWN==red||crashDOWN==blue) {
-        vC.remove(i);
+      int off = 27;
+      color crashX = v.selfContactX(off); 
+      color crashY = v.selfContactY(off);
+      color crashUP = v.selfContactUP(off);
+      color crashDOWN = v.selfContactDOWN(off);
+      for (int j = 0; j < taboo.length; j++) {
+        if (crashX==taboo[j]) {
+          vC.remove(i);
+        } else if (crashY==taboo[j]) {
+          vC.remove(i);
+        } else if (crashUP==taboo[j]) {
+          vC.remove(i);
+        } else if (crashDOWN==taboo[j]) {
+          vC.remove(i);
+        }
       }
     }
   }
