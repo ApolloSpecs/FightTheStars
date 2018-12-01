@@ -57,8 +57,8 @@ class EnemyFactory {
       }
       if (v.contact(mouse)) {
         vC.remove(i);
-        health-=1;
-        shipOff+=1;
+        //health-=1;
+        //shipOff+=1;
       }
     }
   }
