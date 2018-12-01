@@ -69,11 +69,11 @@ class AdvPlayer {
     imageMode(CENTER);
     image(ship[0], 0, 0, health-shipOff, health-shipOff);
     if (accel.mag() != 0&& goingDown == false) {
-      float thrusterCol = random(0, 255);
+      float thrusterCol = random(75, 255);
       fill(thrusterCol, thrusterCol/2, 0);
       triangle(-5, 22, 5, 22, 0, 40);
     } else if (accel.mag() != 0&& goingDown == true) {
-      float thrusterCol = random(0, 255);
+      float thrusterCol = random(75, 255);
       int x = 250;
       int y = 255;
       fill(thrusterCol, thrusterCol/2, 0);
