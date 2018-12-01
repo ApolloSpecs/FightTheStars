@@ -75,7 +75,7 @@ class AdvPlayer {
     } else if (accel.mag() != 0&& goingDown == true) {
       float thrusterCol = random(0, 255);
       int x = 250;
-      int y = 250;
+      int y = 255;
       fill(thrusterCol, thrusterCol/2, 0);
       triangle(208-x, 230-y, 214-x, 230-y, 211-x, 215-y);
       triangle(285-x, 230-y, 291-x, 230-y, 288-x, 215-y);
