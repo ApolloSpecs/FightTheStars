@@ -1,7 +1,7 @@
 float health = 150;
 float startingHealth = health;
 boolean goingDown;
-float shipOff = 20;
+byte shipOff = 20;
 
 PImage[] ship = new PImage[2];
 PVector mouse;     // ship's mouseition
