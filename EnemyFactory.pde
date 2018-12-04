@@ -18,7 +18,7 @@ class EnemyFactory {
   color lw = color(228);
   color lg = color(196);
 
-  color taboo[] = {lr,dr,r,vdr,or,ar,lb,db,b,g,lw,lg};
+  color taboo[] = {lr, dr, r, vdr, or, ar, lb, db, b, g, lw, lg};
 
   EnemyFactory() {
     vC = new ArrayList<Vehicle>();
@@ -76,6 +76,7 @@ class EnemyFactory {
         vC.remove(i);
         //health-=1;
         //shipOff+=1;
+        lifeX-=10;
       }
     }
   }
