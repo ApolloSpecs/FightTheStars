@@ -15,11 +15,10 @@ class EnemyFactory {
   color b = color(44, 85, 165);
 
   color g = color(0);
-  color w = color(255);
   color lw = color(228);
   color lg = color(196);
 
-  color taboo[] = {lr,dr,r,vdr,or,ar,lb,db,b,g,w,lw,lg};
+  color taboo[] = {lr,dr,r,vdr,or,ar,lb,db,b,g,lw,lg};
 
   EnemyFactory() {
     vC = new ArrayList<Vehicle>();
