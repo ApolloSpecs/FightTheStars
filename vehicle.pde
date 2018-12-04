@@ -8,7 +8,7 @@ class Vehicle {
   float r; //size of the agent
   float maxforce;    // Maximum steering force or how fast it turns
   float maxspeed;    // Maximum speed
-  int s = 1; // for debugging purposes
+  byte s = 1; // for debugging purposes
   boolean change = false;
   boolean cheack = false;
   boolean repeat = false;
