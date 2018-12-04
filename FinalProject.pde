@@ -1,6 +1,6 @@
 AdvPlayer P;
 EnemyFactory Nemisis;
-float DIF = 1;
+float DIF = 0.75;
 void setup() {
   fullScreen();
   //size(500, 500);
@@ -13,7 +13,8 @@ void draw() {
   P.drawPlayer();
   Nemisis.hunt();
   Nemisis.SelfHit();
-  apply();
+ // apply();
+ // for debugging purposes click to reveal enemys
 }
 void apply() {
   float random = random(0, 100);
@@ -28,7 +29,7 @@ void apply() {
   }
 }
 
-//void mousePressed() {
-//  Nemisis.addBomb(0.1, 11);
-//  Nemisis.addShoot(0.1, 11);
-//}
+void mousePressed() {
+  Nemisis.addBomb(0.1, 11);
+  Nemisis.addShoot(0.1, 11);
+}
