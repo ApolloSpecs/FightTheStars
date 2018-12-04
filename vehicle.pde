@@ -3,23 +3,26 @@ class Vehicle {
   PVector velocity;
   PVector acceleration;
   float lifeSpan; // how long the vechiel will survive for
-  PImage FinImage; // final image the vehicle gets assigned to
+  PImage[] FinImage; // final image the vehicle gets assigned to
   float mass = 1; 
   float r; //size of the agent
   float maxforce;    // Maximum steering force or how fast it turns
   float maxspeed;    // Maximum speed
-  int s = 3; // for debugging purposes
+  int s = 1; // for debugging purposes
+  boolean change = false;
+  boolean cheack = false;
+  boolean repeat = false;
+  byte frame = 0;
 
-  Vehicle(PVector location, float ms, float mf, PImage image) {
+  Vehicle(PVector location, float ms, float mf, PImage[] image) {
     acceleration = new PVector(0, 0);
     velocity = new PVector(0, 0);
     position = location.get();
-    r = 6;
+    r = 8;
     maxspeed = ms;
     maxforce = mf;
     lifeSpan = random(20000, 500000);
     FinImage = image;
-   
   }
   //update position
   void update() {
@@ -61,7 +64,7 @@ class Vehicle {
   }
 
   boolean contact(PVector target) {
-    int limit = int(health/2)+int((2*r)+1);
+    int limit = int(health/2.7)+int((2*r));
     if (position.x <= target.x + limit && position.x >= target.x -limit && position.y <= target.y + limit && position.y >= target.y -limit) {
       return true;
     } else {
@@ -87,8 +90,8 @@ class Vehicle {
     popMatrix();
   }
 
-  color selfContactX() {
-    int offSet = int((2*r)+4);
+  color selfContactX(int off) {
+    int offSet = int((2*r)+off);
     color coil =  get(int(position.x+offSet), int(position.y));
     color indication = color(0, 255, 0);
     fill(indication);
@@ -96,8 +99,8 @@ class Vehicle {
     ellipse(int(position.x+offSet), int(position.y), s, s);
     return coil;
   }
-  color selfContactY() {
-    int offSet = int((2*r)+4);
+  color selfContactY(int off) {
+    int offSet = int((2*r)+off);
     color coil =  get(int(position.x-offSet), int(position.y));
     color indication = color(0, 255, 0);
     fill(indication);
@@ -105,8 +108,8 @@ class Vehicle {
     ellipse(int(position.x-offSet), int(position.y), s, s);
     return coil;
   }
-  color selfContactUP() {
-    int offSet = int((2*r)+3);
+  color selfContactUP(int off) {
+    int offSet = int((2*r)+off);
     color coil =  get(int(position.x), int(position.y+offSet));
     color indication = color(0, 255, 0);
     fill(indication);
@@ -114,8 +117,8 @@ class Vehicle {
     ellipse(int(position.x), int(position.y+offSet), s, s);
     return coil;
   }
-  color selfContactDOWN() {
-    int offSet = int((2*r)+3);
+  color selfContactDOWN(int off) {
+    int offSet = int((2*r)+off);
     color coil =  get(int(position.x), int(position.y-offSet));
     color indication = color(0, 255, 0);
     fill(indication);
@@ -128,6 +131,36 @@ class Vehicle {
     //max speed nothing will stop it
     seek(target);
     update();
-    display(FinImage);
+    if (frame == FinImage.length) {
+      frame = 0;
+    }
+    if (change) {
+      display(FinImage[frame]);
+      cheack = false;
+      if (!repeat) {
+        frame++;
+      }
+      repeat = true;
+    } else if (!change) {
+      display(FinImage[frame]); 
+      cheack = true;
+      if (!repeat) {
+        frame++;
+      }
+      repeat = true;
+    }
+    int flip = frameCount % 50;
+    if (flip == 0) {
+      flipArt();
+    }
+  }
+  void flipArt() {
+    if (cheack) {
+      change = true;
+      repeat = false;
+    } else if (!cheack) {
+      change = false;
+      repeat = false;
+    }
   }
 }
