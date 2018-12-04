@@ -1,6 +1,7 @@
 AdvPlayer P;
 EnemyFactory Nemisis;
 float DIF = 0.75;
+byte lifeX = 100;
 void setup() {
   fullScreen();
   //size(500, 500);
@@ -13,8 +14,20 @@ void draw() {
   P.drawPlayer();
   Nemisis.hunt();
   Nemisis.SelfHit();
- // apply();
- // for debugging purposes click to reveal enemys
+  // apply();
+  // for debugging purposes click to reveal enemys
+  strokeWeight(3);
+  stroke(0);
+  if (lifeX >= 50) {
+    fill(0, 255, 0);
+  } else if (lifeX >=25 && lifeX <=50) {
+    fill(255, 127, 80);
+  } else if (lifeX < 25) {
+    fill(255, 0, 0);
+  }
+  rect(50, 50, lifeX, 10);
+  noFill();
+  rect(50, 50, 100, 10);
 }
 void apply() {
   float random = random(0, 100);
